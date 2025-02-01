@@ -59,7 +59,7 @@ go build
 
 To rebuild the application with the latest Go release, execute the following commands:
 ```
-export GO_VERSION="1.21.3"
+export GO_VERSION="1.23.5"
 cd ~
 curl --location https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz --output ~/go${GO_VERSION}.linux-amd64.tar.gz
 tar xzvf ~/go${GO_VERSION}.linux-amd64.tar.gz
@@ -67,11 +67,12 @@ sudo rm -rf /usr/local/src/go
 sudo mv ~/go /usr/local/src
 echo 'PATH=$PATH:/usr/local/src/go/bin:$GOPATH/bin' | sudo tee /etc/profile.d/go.sh
 source /etc/profile.d/go.sh
+go version
 
 git clone https://github.com/liv-io/monit_exporter.git
 cd ./monit_exporter/
 rm -f go\.mod  go\.sum
-sed -i 's@go-version: .*@go-version: ${GO_VERSION}@g' .github/workflows/release.yml
+sed -i "s@go-version: .*@go-version: ${GO_VERSION}@g" .github/workflows/release.yml
 go mod init github.com/liv-io/monit_exporter
 go mod tidy
 ```
